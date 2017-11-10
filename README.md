@@ -26,7 +26,7 @@ In this type of cloud, the words are placed randomly on the canvas.
 
 To produce a random placement word cloud run:
 ```
-java random path/to/source/file.txt path/to/output/dir/
+java WordCloudMaker random path/to/source/file.txt path/to/output/dir/
 ```
 
 ### Linear Not Ordered
@@ -38,7 +38,7 @@ In this type of word cloud, the words are placed side by side, in random order.
 
 To produce a linear, but not ordered word cloud run:
 ```
-java linear-not-ordered path/to/source/file.txt path/to/output/dir/
+java WordCloudMaker linear-not-ordered path/to/source/file.txt path/to/output/dir/
 ```
 
 
@@ -51,7 +51,7 @@ In this type of word cloud, the words are placed side by side, ordered from most
 
 To produce a linear word cloud run:
 ```
-java linear path/to/source/file.txt path/to/output/dir/
+java WordCloudMaker linear path/to/source/file.txt path/to/output/dir/
 ```
 
 
