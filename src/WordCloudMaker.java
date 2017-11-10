@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Created by Eloa Franca Verona
+ * This class generates a word cloud from an input text file and saves it as a png image to an output folder
+ */
 public class WordCloudMaker extends JPanel {
     private static final int CANVAS_MAX_WIDTH = 960;
     private static final int CANVAS_MAX_HEIGHT = 720;
@@ -25,20 +29,29 @@ public class WordCloudMaker extends JPanel {
         WordFreqCounter wfq = new WordFreqCounter(filePath);
         wordCountOrdered = wfq.getWordCountOrdered();
     }
+
+    /**
+     * Calls methods to generate world cloud using random placement strategy
+     */
     private void randomPlacementStrategy(){
         addExtraPaddingToWords = true;
         finalWordShapes = findPositionRandom(wordCountOrdered);
         setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
     }
 
-    private void linearNotOrderedPlacementStrategy(){
+    /**
+     * Calls methods to generate world cloud using linear unordered strategy
+     */
+    private void linearUnorderedPlacementStrategy(){
         addExtraPaddingToWords = true;
-        finalWordShapes = findPositionLineNotOrdered(wordCountOrdered);
+        finalWordShapes = findPositionLinearUnordered(wordCountOrdered);
         setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
     }
-
+    /**
+     * Calls methods to generate world cloud using linear ordered strategy
+     */
     private void linearOrderedPlacementStrategy(){
-        finalWordShapes = findPositionLineOrdered(wordCountOrdered);
+        finalWordShapes = findPositionLinearOrdered(wordCountOrdered);
         setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
     }
 
@@ -47,8 +60,9 @@ public class WordCloudMaker extends JPanel {
      */
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);  // paint background
+        setOpaque(true);
         setBackground(Color.WHITE);
+        super.paintComponent(g);  // paint background
         Graphics2D g2 = (Graphics2D) g;
         Color[] colors = generateColor(4);
         int index = 0;
@@ -60,6 +74,12 @@ public class WordCloudMaker extends JPanel {
             g2.draw(word);
         }
     }
+
+    /**
+     * Generates random pastel colors for the words,
+     * @param numOfColors number of colors to be generated
+     * @return
+     */
     private Color[] generateColor(int numOfColors){
         Color[] colors = new Color[numOfColors];
         Random rand = new Random();
@@ -73,7 +93,7 @@ public class WordCloudMaker extends JPanel {
         return colors;
     }
     /**
-     * Takes in  total area taken by the words to be placed and sets the Height of the Canvas to be as big as needed to fit the words
+     * Takes in  total area taken by the words to be placed and sets the height of the canvas to be as big as needed to fit the words
      *
      * @param totalArea
      */
@@ -84,8 +104,8 @@ public class WordCloudMaker extends JPanel {
     /**
      * This method calculates that a word shape takes and adds it to the area other words already placed take
      * the actual area all words take when placed in the canvas is actually bigger than the simple sum of
-     *their areas. As smaller words are placed side by side with taller words, the actual height space
-     * the smaller word takes is the same as the bigger word. So extra will be added to the height of the word
+     *the words areas. Depending on the placement strategy, extra space will be added to the height of the word.
+     * to account for extra space they may take.
      * to account for that
      * @param word
      * @param areaSoFar
@@ -94,7 +114,7 @@ public class WordCloudMaker extends JPanel {
     private double calculateArea(Shape word, double areaSoFar) {
         double extraPaddingToWords = 0;
         if(addExtraPaddingToWords) {
-            extraPaddingToWords = word.getBounds2D().getHeight() * 0.35;
+            extraPaddingToWords = word.getBounds2D().getHeight() * 0.45;
         }
         return areaSoFar + ((word.getBounds2D().getHeight() + spacingBetweenWords + extraPaddingToWords) * (word.getBounds2D().getWidth() + spacingBetweenWords));
     }
@@ -159,7 +179,7 @@ public class WordCloudMaker extends JPanel {
      * @param wordCount
      * @return
      */
-    public ArrayList<Shape> findPositionLineOrdered(Map<String, Integer> wordCount) {
+    public ArrayList<Shape> findPositionLinearOrdered(Map<String, Integer> wordCount) {
         Rectangle2D lastBounds = null;
         Rectangle2D wordMaxHeight = null;
         ArrayList<Shape> transformedWords = new ArrayList<>();
@@ -216,7 +236,7 @@ public class WordCloudMaker extends JPanel {
      * @param wordCount
      * @return
      */
-    public ArrayList<Shape> findPositionLineNotOrdered(Map<String, Integer> wordCount) {
+    public ArrayList<Shape> findPositionLinearUnordered(Map<String, Integer> wordCount) {
         Rectangle2D lastBounds = null;
         Rectangle2D wordMaxHeight = null;
         ArrayList<Shape> transformedWords = new ArrayList<>();
@@ -356,8 +376,8 @@ public class WordCloudMaker extends JPanel {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.out.println("Invalid number of arguments. Please provide type of word cloud (linear," +
-                    "linear-not-ordered or random), path " +
+            System.out.println("Invalid number of arguments. Please provide type of word cloud (linear-ordered," +
+                    "linear-unordered or random), path " +
                     "to input text file and path to the directory the program will save the output image ");
             System.exit(1);
         }
@@ -378,17 +398,17 @@ public class WordCloudMaker extends JPanel {
 
         WordCloudMaker wc = new WordCloudMaker(inputFile);
         switch (cloudType) {
-            case "linear":
+            case "linear-ordered":
                 wc.linearOrderedPlacementStrategy();
                 break;
-            case "linear-not-ordered":
-                wc.linearNotOrderedPlacementStrategy();
+            case "linear-unordered":
+                wc.linearUnorderedPlacementStrategy();
                 break;
             case "random":
                 wc.randomPlacementStrategy();
                 break;
             default:
-                System.out.println("Invalid Word Cloud type. The three valid types are: linear, linear-not-ordered or random");
+                System.out.println("Invalid Word Cloud type. The three valid types are: linear-ordered, linear-unordered or random");
                 System.exit(1);
         }
 
