@@ -60,5 +60,5 @@ java WordCloudMaker linear-ordered path/to/source/file.txt path/to/output/dir/
 More examples of output images can be found in the sample_output folder.
 Sample input texts can be found in the sample_input folder.
 
-Happy world cloud making!
+Happy word cloud making!
 
