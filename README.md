@@ -29,20 +29,20 @@ To produce a random placement word cloud run:
 java WordCloudMaker random path/to/source/file.txt path/to/output/dir/
 ```
 
-### Linear Not Ordered
+### Linear Unordered
 In this type of word cloud, the words are placed side by side, in random order.
 
 ![Linear nor ordered world cloud](https://s2.postimg.org/n3j3p8f6x/word_cloud_28.png)
 
 ##### Text Source: [The Picture of Dorian Gray by Oscar Wilde - Retrieved from Project Gutenberg](https://www.gutenberg.org/ebooks/174)
 
-To produce a linear, but not ordered word cloud run:
+To produce a linear unordered word cloud run:
 ```
-java WordCloudMaker linear-not-ordered path/to/source/file.txt path/to/output/dir/
+java WordCloudMaker linear-unordered path/to/source/file.txt path/to/output/dir/
 ```
 
 
-### Linear
+### Linear Ordered
 In this type of word cloud, the words are placed side by side, ordered from most common word to least common word.
 
 ![Linear world cloud](https://s2.postimg.org/5q8tadc61/word_cloud_29.png)
@@ -51,7 +51,7 @@ In this type of word cloud, the words are placed side by side, ordered from most
 
 To produce a linear word cloud run:
 ```
-java WordCloudMaker linear path/to/source/file.txt path/to/output/dir/
+java WordCloudMaker linear-ordered path/to/source/file.txt path/to/output/dir/
 ```
 
 
