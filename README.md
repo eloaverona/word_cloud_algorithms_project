@@ -1,6 +1,6 @@
 
 ## A Word Cloud Generator
-##### A project for the Algorithms Design and Analysis class at Macalester College Spring 2017
+##### A project for the Algorithms Design and Analysis course at Macalester College Spring 2017
 
 This project was inspired by Jonathan Feinberg's work with Wordle, an online word cloud generator. Feiberg wrote a paper about his work with Wordle and the algorithm he used, which can be found [here]( http://static.mrfeinberg.com/bv_ch03.pdf).
 
